@@ -1,8 +1,5 @@
-ans = []
-while True:
+a, b = input(), []
+while a:
+    b.append(a)
     a = input()
-    if a:
-        ans.append(a)
-    else:
-        break
-print(ans)
+print(b)
