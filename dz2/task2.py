@@ -1,6 +1,7 @@
-a = input()[1:-1].split(', ')
-ans = ''
+a, b = input(), []
 while a:
-    ans += max(a)
-    a.remove(max(a))
-print(int(ans))
+    b.append(a)
+    a = input()
+
+b.sort(reverse=True)
+print(''.join(b))
