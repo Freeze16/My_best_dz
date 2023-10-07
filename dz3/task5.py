@@ -1,5 +1,8 @@
-def sub(*args: float) -> float:
+from task1 import enter
+
+
+def sub(*args) -> float:
     return sum(args) / len(args)
 
 
-print(sub(*list(map(float, input().split()))))
+print(sub(*map(int, enter(input()))))

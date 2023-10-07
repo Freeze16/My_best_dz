@@ -8,6 +8,8 @@ def ans(n: int) -> str:
             return 'лето'
         case 9 | 10 | 11:
             return 'осень'
+        case _:
+            return 'числа должны лежать в промежутке от 1 до 12'
 
 
 print(ans(int(input())))

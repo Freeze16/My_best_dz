@@ -1,11 +1,14 @@
-def check(n: int) -> bool:
-    if n in range(4):
+def check(number, current_number=2):
+    if number % current_number == 0:
+        return current_number
+
+    return check(number, current_number + 1)
+
+
+def check_simple(n):
+    if n == 1:
         return False
-
-    for i in (2, n // 2):
-        if not n % i:
-            return False
-    return True
+    return bool(check(n) == n)
 
 
-print(check(int(input())))
+print(check_simple(3))

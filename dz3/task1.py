@@ -1,4 +1,4 @@
-def something(a) -> list:
+def enter(a) -> list:
     ans = []
     while a:
         ans.append(a)
@@ -6,4 +6,5 @@ def something(a) -> list:
     return ans
 
 
-print(something(input()))
+if __name__ == '__main__':
+    print(enter(input()))

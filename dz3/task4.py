@@ -1,17 +1,10 @@
-def something(a) -> list:
-    ans = []
-    while a:
-        ans.append(a)
-        a = input()
-    return ans
+from task1 import enter
 
-
-elements = something(input())
-elements_without_repeat = []
 print('Элемент | Частота')
+elements = enter(input())
+ans = {}
 
 for el in elements:
-    if el not in elements_without_repeat:
-        elements_without_repeat.append(el)
-        print(el, '|', elements.count(el))
+    ans[el] = ans.get(el, 0) + 1
 
+print(*[f'{i} | {ans[i]}' for i in ans], sep='\n')
