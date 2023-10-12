@@ -1,7 +1,10 @@
+from itertools import permutations
+
 a, b = input(), []
 while a:
     b.append(a)
     a = input()
 
-b.sort(reverse=True)
-print(''.join(b))
+x = permutations(b)  # придумал, что смог
+nx = [int(''.join(i)) for i in x]
+print(max(nx))
