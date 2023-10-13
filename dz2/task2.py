@@ -7,5 +7,4 @@ def max_number(a):
     return int(''.join(a))
 
 
-max_number = max_number(enter(input()))
-print(max_number)
+print(max_number(enter(input())))
