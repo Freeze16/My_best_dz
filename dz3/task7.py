@@ -1,5 +1,9 @@
-def ans(txt: list) -> [str, str]:
-    return [max(txt, key=lambda x: txt.count(x)), max(txt, key=len)]
+from collections import Counter
+
+
+def ans(txt: list) -> []:
+    x = Counter(txt)
+    return [max(x, key=lambda y: x[y]), max(txt, key=len)]
 
 
 print(*ans(input().split()))
