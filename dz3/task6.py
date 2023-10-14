@@ -1,11 +1,10 @@
 def check_simple(number: int):
-    if number in (1, 4):
+    if number < 2:
         return False
 
-    for i in range(2, number // 2):
+    for i in range(2, int(number ** 0.5) + 1):
         if not number % i:
             return False
-
     return True
 
 
