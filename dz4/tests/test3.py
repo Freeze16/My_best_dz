@@ -1,5 +1,5 @@
 import pytest
-from dz4.task3 import check
+from dz4.task3 import is_the_same
 
 
 @pytest.mark.parametrize(
@@ -8,10 +8,11 @@ from dz4.task3 import check
         [34, 'Hello, world!', False],
         '12345',
         tuple([23, '23']),
+        [1, True],
     ]
 )
 def test_true(pos):
-    assert check(pos) is True
+    assert is_the_same(pos) is True
 
 
 @pytest.mark.parametrize(
@@ -22,4 +23,4 @@ def test_true(pos):
     ]
 )
 def test_false(pos):
-    assert check(pos) is False
+    assert is_the_same(pos) is False
