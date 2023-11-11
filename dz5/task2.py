@@ -1,20 +1,23 @@
-from dz3.task1 import enter
-from typing import Union
+from typing import Sequence, Any
 
 
-def bin_search(pos: list[Union[int, float]], el: Union[int, float]) -> int:
-    index, min_index, max_index = len(pos) // 2, 0, len(pos) - 1
-    while pos[index] != el and min_index <= max_index:
-        if pos[index] < el:
-            min_index = index + 1
-        else:
-            max_index = index - 1
-
+def bin_search(pos: Sequence, el: Any) -> int | None:
+    min_index, max_index = 0, len(pos) - 1
+    result = None
+    while min_index <= max_index:
         index = (min_index + max_index) // 2
-
-    if min_index <= max_index:
-        return index
+        if pos[index] == el:
+            result = index
+            max_index = index - 1
+        elif pos[index] > el:
+            max_index = index - 1
+        else:
+            min_index = index + 1
+    return result
 
 
 if __name__ == '__main__':
-    print(bin_search(list(map(float, enter(input()))), float(input())))
+    # print(bin_search([-2, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1], 1))
+    # print(bin_search([1, 1, 1, 1, 1, 1], 1))
+    # print(bin_search([1, 2, 3, 4, 5, 6], 4))
+    print(bin_search([1, 2, 3, 4, 5], 2))
