@@ -1,51 +1,52 @@
 from typing import Any
 
 
-def create_hash_table(max_size: int = 5) -> tuple[list[dict], int]:
-    return [{} for _ in range(max_size)], 0
+def create_hash_table(max_size: int = 5) -> tuple[list[list], int]:
+    return [[] for _ in range(max_size)], 0
 
 
-def contains(tab: list[dict], size: int, key: str | int) -> bool:
-    return key in tab[hash_func(tab, size) % len(tab)]
+def contains(tab: list[list], key: str | int) -> bool:
+    for lst in tab[hash_func(key) % len(tab)]:
+        if key in lst:
+            return True
+    return False
 
 
-def hash_func(tab: list[dict], size: int, const: float = (5 ** 0.5 - 1) / 2) -> int:
-    return int(len(tab) * ((size * const) % 1))
+def hash_func(key: str | int) -> int:
+    hash_ = 5381
+    for char in str(key):
+        hash_ = ((hash_ << 5) + hash_) + ord(char)
+    return hash_ & 0xFFFFFFFF
 
 
-def set_value(tab: list[dict], size: int, key: str | int, value: Any) -> tuple[list, int]:
-    if not contains(tab, size, key):
+def set_value(tab: list[list], size: int, key: str | int, value: Any) -> tuple[list, int]:
+    if not contains(tab, key):
         if len(tab) == size:
             tabl, size = create_hash_table(max_size=size * 2)
             for i in tab:
                 for j in i:
-                    tab, size = set_value(tabl, size, j, i[j])
+                    tab, size = set_value(tabl, size, j[0], j[1])
 
-        tab[hash_func(tab, size) % len(tab)][key] = value
+        tab[hash_func(key) % len(tab)].append([key, value])
         size += 1
 
     return tab, size
 
 
-def get_value(tab: list[dict], size: int, key: str | int) -> Any:
-    return tab[hash_func(tab, size) % len(tab)].get(key)
+def get_value(tab: list[list], key: str | int) -> Any:
+    bucket = tab[hash_func(key) % len(tab)]
+    for k in bucket:
+        if key == k[0]:
+            return k[1]
 
 
-def del_value(tab: list[dict], size: int, key: str | int) -> tuple[list[dict], int]:
-    if contains(tab, size, key):
-        del tab[hash_func(tab, size) % len(tab)][key]
+def del_value(tab: list[list], size: int, key: str | int) -> tuple[list[list], int]:
+    value = get_value(tab, key)
+    if contains(tab, key):
+        tab[hash_func(key) % len(tab)].remove([key, value])
         size -= 1
     return tab, size
 
 
-def load_factor(tab: list[dict], size: int) -> float:
+def load_factor(tab: list[list], size: int) -> float:
     return size / len(tab)
-
-
-def main():
-    print(set_value([{}, {}, {}, {}, {}], 0, 1, 'one'))
-    print(set_value([{1: 'one'}, {}, {}, {}, {}], 1, 'Hello, world!', 42))
-
-
-if __name__ == '__main__':
-    main()
