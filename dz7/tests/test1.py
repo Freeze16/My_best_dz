@@ -1,20 +1,22 @@
 import pytest
 from dz7.task1 import *
 
-@pytest.mark.parametrize("graph, start, target, expected", [
-    ({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A', 'A', 0),
-    ({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A', 'B', 1),
-    ({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A', 'C', 1),
-    ({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A', 'D', 2),
-    ({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A', 'E', 2),
-    ({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A', 'F', 2),
-    ({'A': ['B', 'C'], 'B': ['A', 'D', 'E'], 'C': ['A', 'F'], 'D': ['B'], 'E': ['B', 'F'], 'F': ['C', 'E']}, 'A', 'G', None),
-    ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'A', 'D', 2),
-    ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'B', 'E', 2),
-    ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'C', 'D', 1),
-    ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'D', 'E', 1),
-    ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'E', 'A', 1),
-    ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'A', 'F', None),
-])
-def test_bfs(graph, start, target, expected):
-    assert bfs(graph, start, target) == expected
+
+@pytest.mark.parametrize(
+    ('graph', 'start_el', 'need_el', 'condition', 'distance'),
+    [
+        ({'Aboba': ['Boba', 'Biba']}, 'Aboba', 'Biba', lambda a, b: a == b, 1),
+        ({'Aboba': ['Boba', 'Biba']}, 'Aboba', 'Biba', lambda a, b: a == b, 1),
+        ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'D', 'E',
+         lambda a, b: a == b, 1),
+        ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'A', 'D',
+         lambda a, b: a == b, 2),
+        ({'A': ['B', 'E'], 'B': ['A', 'C'], 'C': ['B', 'D'], 'D': ['C', 'E'], 'E': ['A', 'D']}, 'A', 'F',
+         lambda a, b: a == b, None),
+        ({1: [2, 0], 0: [-1], 2: [3, 2.5]}, 1, 3, lambda a, b: a == b - 1, 1),
+        ({1: [2, 0], 0: [-1], 2: [3, 2.5, 4]}, 1, 4, lambda a, b: a * 2 == b, 1),
+        ({'Ivan': ['Karabanow', 'Tafincev']}, 'Ivan', 'karabanow', lambda a, b: a.lower() == b.lower(), 1)
+    ]
+)
+def test_bfs(graph, start_el, need_el, condition, distance):
+    assert bfs(graph, start_el, need_el, condition) == distance
