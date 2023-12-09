@@ -9,14 +9,16 @@ from dz6.task1 import *
         ([[['Freeze', 'I want to sleep']], []], 1, 'Freeze', 'I want to sleep', [[['Freeze', 'I want to sleep']], []]),
         ([[['Freeze', 'I want to sleep']], []], 1, 42, True, [[['Freeze', 'I want to sleep']], [[42, True]]]),
         (
-            [[['Freeze', 'I want to sleep']], [[42, True]]],
-            2, 'lrkovnowbaer', (1724, ':(', False),
-            [[], [['lrkovnowbaer', (1724, ':(', False)]], [['Freeze', 'I want to sleep']], [[42, True]]]
+                [[['Freeze', 'I want to sleep']], [[42, True]]],
+                2, 'lrkovnowbaer', (1724, ':(', False),
+                [[], [['lrkovnowbaer', (1724, ':(', False)]],
+                 [['Free/home/freeze/projects/My_best_dz/dz6/task1.pyze', 'I want to sleep']], [[42, True]]]
         ),
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)]], [['Freeze', 'I want to sleep']], [[42, True]]],
-            3, 'cringe', 1,
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']], [[42, True]]]
+                [[], [['lrkovnowbaer', (1724, ':(', False)]], [['Freeze', 'I want to sleep']], [[42, True]]],
+                3, 'cringe', 1,
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']],
+                 [[42, True]]]
         )
     ]
 )
@@ -28,20 +30,22 @@ def test_set_value(tab, size, key, value, result):
     ('tab', 'key', 'value'),
     [
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)]], [['Freeze', 'I want to sleep']], [[42, True]]],
-            'lrkovnowbaer', (1724, ':(', False)
+                [[], [['lrkovnowbaer', (1724, ':(', False)]], [['Freeze', 'I want to sleep']], [[42, True]]],
+                'lrkovnowbaer', (1724, ':(', False)
         ),
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)]], [['Freeze', 'I want to sleep']], [[42, True]]],
-            42, True
+                [[], [['lrkovnowbaer', (1724, ':(', False)]], [['Freeze', 'I want to sleep']], [[42, True]]],
+                42, True
         ),
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']], [[42, True]]],
-            'cringe', 1
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']],
+                 [[42, True]]],
+                'cringe', 1
         ),
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']], [[42, True]]],
-            'something else', None
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']],
+                 [[42, True]]],
+                'something else', None
         )
     ]
 )
@@ -53,14 +57,15 @@ def test_get_value(tab, key, value):
     ('tab', 'size', 'key', 'result'),
     [
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']], [[42, True]]],
-            4, 'Freeze',
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']],
+                 [[42, True]]],
+                4, 'Freeze',
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
         ),
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
-            3, 'ok',
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
+                3, 'ok',
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
         )
     ]
 )
@@ -72,12 +77,13 @@ def test_del_value(tab, size, key, result):
     ('tab', 'size', 'result'),
     [
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
-            3, 0.75
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [], [[42, True]]],
+                3, 0.75
         ),
         (
-            [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']], [[42, True]]],
-            4, 1.0
+                [[], [['lrkovnowbaer', (1724, ':(', False)], ['cringe', 1]], [['Freeze', 'I want to sleep']],
+                 [[42, True]]],
+                4, 1.0
         )
     ]
 )
