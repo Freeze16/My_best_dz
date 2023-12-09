@@ -1,13 +1,20 @@
 from collections import deque
+from typing import Any, Callable
 
 
-def bfs(graph: dict[str, list[str]], start_el: str, need_el: str) -> int | None:
+def check(a, b) -> bool:
+    # return a * 2 == b:
+    # return a == b / 2:
+    return a.lower() == b.lower()
+
+
+def bfs(graph: dict[Any, list[Any]], start_el: Any, need_el: Any, condition: Callable) -> int | None:
     visited = set()
     queue = deque([(start_el, 0)])
 
     while queue:
         el, distance = queue.popleft()
-        if el == need_el:
+        if condition(el, need_el):
             return distance
         for near_el in graph.get(el, []):
             if near_el not in visited:
@@ -16,4 +23,4 @@ def bfs(graph: dict[str, list[str]], start_el: str, need_el: str) -> int | None:
 
 
 if __name__ == '__main__':
-    print(bfs({'a': ['b', 'c']}))
+    print(bfs({'A': ['b', 'c']}, 'A', 'b', check))
