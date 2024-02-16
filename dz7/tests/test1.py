@@ -15,7 +15,7 @@ from dz7.task1 import *
          lambda a, b: a == b, None),
         ({1: [2, 0], 0: [-1], 2: [3, 2.5]}, 1, 3, lambda a, b: a == b - 1, 1),
         ({1: [2, 0], 0: [-1], 2: [3, 2.5, 4]}, 1, 4, lambda a, b: a * 2 == b, 1),
-        ({'Ivan': ['Karabanow', 'Tafincev']}, 'Ivan', 'karabanow', lambda a, b: a.lower() == b.lower(), 1)
+        ({'Ivan': ['Karabanow', 'Tafincev']}, 'Ivan', 'karabanow', lambda a, b: a.lower() == b.lower(), 1),
     ]
 )
 def test_bfs(graph, start_el, need_el, condition, distance):
