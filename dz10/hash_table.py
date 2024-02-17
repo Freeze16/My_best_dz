@@ -2,11 +2,11 @@ from typing import Any
 
 
 class HashTable:
-    def __init__(self):
-        self.tab, self.size = self._create_hash_table()
+    def __init__(self, size: int = 5) -> None:
+        self.tab, self.size = self._create_hash_table(size)
 
     @staticmethod
-    def _create_hash_table(max_size: int = 5) -> tuple[list[list], int]:
+    def _create_hash_table(max_size) -> tuple[list[list], int]:
         return [[] for _ in range(max_size)], 0
 
     def contains(self, key: str | int) -> bool:
@@ -16,8 +16,8 @@ class HashTable:
         return False
 
     def hash_func(self, key: str | int) -> int:
-        own_hash = ''.join([str(ord(i)) for i in key])
-        return int(own_hash) % len(self.tab)
+        own_hash = [ord(i) for i in key]
+        return sum(own_hash) % len(self.tab)
 
     def set_value(self, key: str | int, value: Any) -> tuple[list, int]:
         if not self.contains(key):
@@ -39,15 +39,23 @@ class HashTable:
             if key == k[0]:
                 return k[1]
 
-    def del_value(self, key: str | int) -> tuple[list[list], int]:
+    def del_value(self, key: str | int) -> bool:
         value = self.get_value(key)
         if self.contains(key):
             self.tab[self.hash_func(key) % len(self.tab)].remove([key, value])
             self.size -= 1
-        return self.tab, self.size
+            return True
+        return False
 
     def load_factor(self) -> float:
         return self.size / len(self.tab)
 
-    def __str__(self):
-        return f'{self.tab}'
+    def __str__(self) -> str:
+        elements = [item for sublist in self.tab for item in sublist if item]
+        return '{' + ', '.join('"{}": "{}"'.format(k, v) for k, v in elements) + '}'
+
+
+d = HashTable()
+d.set_value('a', 2)
+d.set_value('b', 2)
+print(d)
