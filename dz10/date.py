@@ -1,4 +1,7 @@
-class DataDate:
+from typing import Any
+
+
+class Date:
     MONTHS = {
         1: 'Января',
         2: 'Февраля',
@@ -14,38 +17,29 @@ class DataDate:
         12: 'Декабря'
     }
 
-    DAYS = {
-        1: 31,
-        2: 28,
-        3: 31,
-        4: 30,
-        5: 31,
-        6: 30,
-        7: 31,
-        8: 31,
-        9: 30,
-        10: 31,
-        11: 30,
-        12: 31
-    }
+    DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-
-class Date(DataDate):
     def __init__(self, date: str = '01.01.2000') -> None:
-        if not isinstance(date, str):
-            raise ValueError('Неверный формат даты!')
-        self.day, self.month, self.year = self._validity_check(date.split('.'))
+        date = self._format_check(date)
+        self.day, self.month, self.year = self._validity_check(date)
 
-    def _validity_check(self, date: list) -> tuple:
-        if len(date) != 3:
-            raise ValueError('Неверный формат даты!')
+    @staticmethod
+    def _format_check(date: Any) -> list[str]:
+        if isinstance(date, str):
+            date = date.split('.')
+            if len(date) == 3:
+                return date
+        raise ValueError('Неверный формат данных!')
+
+    @staticmethod
+    def _validity_check(date: list) -> tuple:
         day, month, year = map(int, date)
         dop_day = 1 if not year % 4 else 0
-        if month not in self.DAYS:
+        if month not in Date.MONTHS:
             month = 1
-        if month == 2 and (day < 1 or day > self.DAYS[month] + dop_day):
+        if month == 2 and (day < 1 or day > Date.DAYS[month - 1] + dop_day):
             day = 1
-        if month != 2 and (day < 1 or day > self.DAYS[month]):
+        if month != 2 and (day < 1 or day > Date.DAYS[month - 1]):
             day = 1
         if year < 0:
             year = abs(year)
@@ -56,3 +50,8 @@ class Date(DataDate):
 
     def __str__(self):
         return f'{self.day} {self.MONTHS[self.month]} {self.year} года'
+
+
+d = Date('ЫЫЫ')
+print(d)
+print(d.day, d.month, d.year)

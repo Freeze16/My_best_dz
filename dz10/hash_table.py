@@ -6,7 +6,7 @@ class HashTable:
         self.tab, self.size = self._create_hash_table(size)
 
     @staticmethod
-    def _create_hash_table(max_size) -> tuple[list[list], int]:
+    def _create_hash_table(max_size: int) -> tuple[list[list], int]:
         return [[] for _ in range(max_size)], 0
 
     def contains(self, key: str | int) -> bool:
@@ -17,6 +17,8 @@ class HashTable:
 
     def hash_func(self, key: str | int) -> int:
         own_hash = [ord(i) for i in key]
+        if not len(self.tab):
+            return sum(own_hash)
         return sum(own_hash) % len(self.tab)
 
     def set_value(self, key: str | int, value: Any) -> tuple[list, int]:
@@ -50,12 +52,18 @@ class HashTable:
     def load_factor(self) -> float:
         return self.size / len(self.tab)
 
+    def from_dict(self, dictionary: dict = None):
+        self.__init__()
+        for key, value in dictionary.items():
+            self.set_value(key, value)
+
     def __str__(self) -> str:
         elements = [item for sublist in self.tab for item in sublist if item]
         return '{' + ', '.join('"{}": "{}"'.format(k, v) for k, v in elements) + '}'
 
 
-d = HashTable()
-d.set_value('a', 2)
-d.set_value('b', 2)
-print(d)
+if __name__ == '__main__':
+    d = HashTable()
+    d.from_dict({'abv': '123', 'gdz': 3})
+    print(d)
+    print(ord('ы') * 2 // ord('ы'))
