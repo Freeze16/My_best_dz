@@ -21,7 +21,7 @@ def test_init(date, data):
 
 def test_str():
     d2 = Date()
-    assert d2.__str__() == '1 Января 2000 года'
+    assert str(d2) == '1 Января 2000 года'
 
 
 @pytest.mark.parametrize(
