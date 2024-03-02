@@ -2,11 +2,14 @@ from typing import Any
 
 
 class HashTable:
-    def __init__(self, size: int = 5) -> None:
-        self.tab, self.size = self._create_hash_table(size)
+    def __init__(self, this_dict: dict = None) -> None:
+        if this_dict:
+            self.from_dict(this_dict)
+        else:
+            self.tab, self.size = self._create_hash_table()
 
     @staticmethod
-    def _create_hash_table(max_size: int) -> tuple[list[list], int]:
+    def _create_hash_table(max_size: int = 5) -> tuple[list[list], int]:
         return [[] for _ in range(max_size)], 0
 
     def contains(self, key: str | int) -> bool:
@@ -16,7 +19,7 @@ class HashTable:
         return False
 
     def hash_func(self, key: str | int) -> int:
-        own_hash = [ord(i) for i in key]
+        own_hash = [ord(i) for i in str(key)]
         if not len(self.tab):
             return sum(own_hash)
         return sum(own_hash) % len(self.tab)
@@ -53,17 +56,21 @@ class HashTable:
         return self.size / len(self.tab)
 
     def from_dict(self, dictionary: dict = None):
-        self.__init__()
+        self.tab, self.size = self._create_hash_table()
         for key, value in dictionary.items():
             self.set_value(key, value)
 
     def __str__(self) -> str:
         elements = [item for sublist in self.tab for item in sublist if item]
-        return '{' + ', '.join('"{}": "{}"'.format(k, v) for k, v in elements) + '}'
+        print(elements)
+        res = '{'
+        for key, value in elements:
+            res += f'"{key}": ' if isinstance(key, str) else f'{key}: '
+            res += f'"{value}", ' if isinstance(value, str) else f'{value}, '
+        return res[:-2] + '}'
 
 
 if __name__ == '__main__':
     d = HashTable()
-    d.from_dict({'abv': '123', 'gdz': 3})
+    d.from_dict({'abv': '123', 'gdz': 3, 'a': 1, 'b': 2, 3: 3, 'd': 4})
     print(d)
-    print(ord('ы') * 2 // ord('ы'))

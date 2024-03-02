@@ -1,5 +1,5 @@
 import pytest
-from dz10.date import Date
+from dz10.date import Date, DateStamp
 
 d = Date()
 
@@ -21,7 +21,7 @@ def test_init(date, data):
 
 def test_str():
     d2 = Date()
-    assert str(d2) == '1 Января 2000 года'
+    assert str(d2) == '1 января 2000 года'
 
 
 @pytest.mark.parametrize(
@@ -65,3 +65,27 @@ def test_format_check_exception(date, result):
 )
 def test_format_check(date, result):
     assert d._format_check(date) == result
+
+
+@pytest.mark.parametrize(
+    ('date', 'result'),
+    [
+        ('2.2.2022', 2),
+        ('11 сентября 2001', 9)
+    ]
+)
+def test_convert_month_to_number(date, result):
+    d2 = Date(date)
+    assert d2.month == result
+
+
+@pytest.mark.parametrize(
+    ('date', 'result'),
+    [
+        ('11 сентября 2001', '11 сентября 2001 года'),
+        ('12.11.2047', '12 ноября 2047 года'),
+    ]
+)
+def test_date_stamp_init(date, result):
+    ds = DateStamp(date)
+    assert str(ds) == result
