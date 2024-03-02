@@ -51,7 +51,7 @@ class Date:
             return int(m)
         except ValueError:
             for i in range(1, 13):
-                if self.MONTHS[i] == m:
+                if self.MONTHS[i] == m.lower():
                     return i
             return 1
 
@@ -67,7 +67,7 @@ class DateStamp(Date):
         super(DateStamp, self).__init__(date)
 
 
-d = DateStamp('12 января 2023')
+d = DateStamp('12 Января 2023')
 # d.change_date()
 print(d)
 print(d.day, d.month, d.year)
