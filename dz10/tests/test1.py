@@ -82,10 +82,12 @@ def test_convert_month_to_number(date, result):
 @pytest.mark.parametrize(
     ('date', 'result'),
     [
-        ('11 сентября 2001', '11 сентября 2001 года'),
-        ('12.11.2047', '12 ноября 2047 года'),
+        ('11 сентября 2001', (11, 9, 2001)),
+        ('12.11.2047', (12, 11, 2047)),
     ]
 )
 def test_date_stamp_init(date, result):
     ds = DateStamp(date)
-    assert str(ds) == result
+    assert ds.day == result[0]
+    assert ds.month == result[1]
+    assert ds.year == result[2]

@@ -62,15 +62,9 @@ class HashTable:
 
     def __str__(self) -> str:
         elements = [item for sublist in self.tab for item in sublist if item]
-        print(elements)
-        res = '{'
-        for key, value in elements:
-            res += f'"{key}": ' if isinstance(key, str) else f'{key}: '
-            res += f'"{value}", ' if isinstance(value, str) else f'{value}, '
-        return res[:-2] + '}'
+        return '{' + ', '.join('{}: {}'.format(repr(key), repr(value)) for key, value in elements) + '}'
 
 
 if __name__ == '__main__':
-    d = HashTable()
-    d.from_dict({'abv': '123', 'gdz': 3, 'a': 1, 'b': 2, 3: 3, 'd': 4})
-    print(d)
+    d = HashTable({'abv': '123', 'gdz': 3, 'a': 1, 'b': 2, 3: 3, 'd': 4})
+    print(d.tab)

@@ -48,9 +48,9 @@ def test_load_factor(hash_table):
 def test_str(hash_table):
     hash_table.set_value("key1", "value1")
     hash_table.set_value("key2", 3)
-    assert str(hash_table) == '{"key1": "value1", "key2": 3}'
+    assert str(hash_table) == "{'key1': 'value1', 'key2': 3}"
 
 
 def test_from_dict(hash_table):
-    hash_table.from_dict({'abv': '123', 'gdz': 3, 'a': 1, 'b': 2, 'c': 3, 'd': 4})
-    assert str(hash_table) == '{"d": 4, "abv": "123", "gdz": 3, "a": 1, "b": 2, "c": 3}'
+    hash_table.from_dict({'abv': '123', 'gdz': 3, 'a': 1, 'b': 2, 3: 3, 'd': 4})
+    assert hash_table.tab == [[['d', 4]], [[3, 3]], [], [['abv', '123']], [], [['gdz', 3]], [], [['a', 1]], [['b', 2]], []]
