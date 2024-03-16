@@ -66,8 +66,9 @@ class Date:
             year += 1
         day = self.day + other.day
         dop_day = 1 if not year % 4 and month == 2 else 0
-        if day > self.DAYS[month - 1] + dop_day:
-            day %= self.DAYS[month - 1] + dop_day
+        while day > self.DAYS[month - 1] + dop_day:
+            dop_day = 1 if not year % 4 and month == 2 else 0
+            day -= self.DAYS[month - 1] + dop_day
             month += 1
 
         return Date(f'{day}.{month}.{year}')
@@ -79,7 +80,10 @@ class Date:
             month += 12
             year -= 1
         day = self.day - other.day
-        if day < 1:
+        dop_day = 1 if not year % 4 and month == 2 else 0
+        if day > self.DAYS[month - 1] + dop_day:
+            day = day + (self.DAYS[month - 1] + dop_day - day)
+        elif day < 1:
             month -= 1
             dop_day = 1 if not year % 4 and month == 2 else 0
             day = self.DAYS[month - 1] + dop_day + day
@@ -101,7 +105,9 @@ class DateStamp(Date):
         super(DateStamp, self).__init__(date)
 
 
-d = Date('01.04.2000')
-b = Date('01.01.1001')
+d = Date('31.01.1012')
+b = Date('31.01.1011')
+f = d + b
 # d.change_date()
-print(d - b)
+print(type(f))
+print(f)
