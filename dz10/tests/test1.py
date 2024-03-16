@@ -91,3 +91,40 @@ def test_date_stamp_init(date, result):
     assert ds.day == result[0]
     assert ds.month == result[1]
     assert ds.year == result[2]
+
+
+@pytest.mark.parametrize(
+    ('date1', 'date2', 'result'),
+    [
+        ('11.06.2003', '12.03.2006', '23.09.4009'),
+        ('01.12.2015', '01.12.2005', '02.12.4021'),
+        ('28.02.2020', '01.01.01', '29.03.2021'),
+        ('31.01.2000', '01.01.1000', '03.03.3000'),
+    ]
+)
+def test_add(date1, date2, result):
+    assert Date(date1) + Date(date2) == Date(result)
+
+
+@pytest.mark.parametrize(
+    ('date1', 'date2', 'result'),
+    [
+        ('15.03.2005', '10.02.2000', '05.01.05'),
+        ('31.01.2000', '01.01.1000', '30.12.999'),
+        ('01.04.2000', '01.01.1001', '28.02.999'),
+        ('01.04.2000', '01.01.1000', '29.02.1000'),
+    ]
+)
+def test_sub(date1, date2, result):
+    assert Date(date1) - Date(date2) == Date(result)
+
+
+@pytest.mark.parametrize(
+    ('date1', 'date2'),
+    [
+        ('01.01.01', '1.1.1'),
+        ('20.08.1508', '20.8.1508'),
+    ]
+)
+def test_eq(date1, date2):
+    assert Date(date1) == Date(date2)

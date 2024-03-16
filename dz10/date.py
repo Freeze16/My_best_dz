@@ -58,8 +58,42 @@ class Date:
     def change_date(self):
         self.day, self.month, self.year = self._validity_check(input('Введите новую дату: ').split('.'))
 
+    def __add__(self, other):
+        year = self.year + other.year
+        month = self.month + other.month
+        if month > 12:
+            month = month % 12 if month % 12 else 12
+            year += 1
+        day = self.day + other.day
+        dop_day = 1 if not year % 4 and month == 2 else 0
+        if day > self.DAYS[month - 1] + dop_day:
+            day %= self.DAYS[month - 1] + dop_day
+            month += 1
+
+        return Date(f'{day}.{month}.{year}')
+
+    def __sub__(self, other):
+        year = self.year - other.year
+        month = self.month - other.month
+        if month < 1:
+            month += 12
+            year -= 1
+        day = self.day - other.day
+        if day < 1:
+            month -= 1
+            dop_day = 1 if not year % 4 and month == 2 else 0
+            day = self.DAYS[month - 1] + dop_day + day
+
+        return Date(f'{day}.{month}.{year}')
+
+    def __eq__(self, other):
+        return self.day == other.day and self.month == other.month and self.year == other.year
+
     def __str__(self):
         return f'{self.day} {self.MONTHS[self.month]} {self.year} года'
+
+    def __repr__(self):
+        return f'{self.day}.{self.month}.{self.year}'
 
 
 class DateStamp(Date):
@@ -67,7 +101,7 @@ class DateStamp(Date):
         super(DateStamp, self).__init__(date)
 
 
-d = DateStamp('12 Января 2023')
+d = Date('01.04.2000')
+b = Date('01.01.1001')
 # d.change_date()
-print(d)
-print(d.day, d.month, d.year)
+print(d - b)
